@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.routers import autocomplete
+from server.routers import autocomplete
 
 app = FastAPI(
     title="Autocomplete Engine API",

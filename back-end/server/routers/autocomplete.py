@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.models.api_models import AutocompleteResponse, SuggestionResponse
-from backend.services.app_context import AppContext
+from server.models.api_models import AutocompleteResponse, SuggestionResponse
+from server.services.app_context import AppContext
 
 router = APIRouter(prefix="/api", tags=["Autocomplete"])
 
@@ -9,8 +9,6 @@ def autocomplete(query: str, user_id: str = "guest", k: int = 5):
     qp, logger = AppContext.initialize()
 
     suggestions = qp.autocomplete(query, user_id=user_id, k=k)
-
-    # Convert engine suggestions → JSON-compatible response objects
     response_suggestions = [
         SuggestionResponse(term=s.term, score=s.score)
         for s in suggestions
