@@ -9,7 +9,7 @@ class QueryProcessor:
         self.ranking = ranking_engine
         self.cache = cache
 
-    def autocomplete(self, query, user_id=None, k=5, debug=False):
+    def autocomplete(self, query, user_id=None, k=5, debug=False, disable_cache=False):
         debug_info = {
             "query": query,
             "prefix_path": [],
@@ -26,9 +26,10 @@ class QueryProcessor:
         # -----------------------------
         # 1. Cache lookup
         # -----------------------------
-        cached = self.cache.get(query, user_id)
-        if cached and not debug:
-            return cached
+        if not disable_cache:
+            cached = self.cache.get(query, user_id)
+            if cached:
+                return cached
 
         candidates = []
 
@@ -76,6 +77,7 @@ class QueryProcessor:
         ]
 
         ranked = self.ranking.rank(list(unique), user_id=user_id, limit=k)
+        print(ranked)
 
         debug_info["rank_output"] = [
             {"term": c.term, "score": c.score} for c in ranked

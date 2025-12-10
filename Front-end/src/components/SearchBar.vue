@@ -26,6 +26,15 @@ async function handleInput() {
     }
   }, 300);
 }
+
+
+function clear() {
+  query.value = "";
+  emit("suggestions", []);
+  debugStore.setDebug(null);
+}
+
+defineExpose({ clear });
 </script>
 
 <template>
@@ -37,6 +46,7 @@ async function handleInput() {
     class="search-input"
   />
 </template>
+
 <style scoped>
 .search-input {
   width: 100%;

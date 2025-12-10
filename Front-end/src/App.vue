@@ -5,7 +5,7 @@
     <div class="app-container">
       <h1 class="app-title">Autocomplete Engine</h1>
 
-      <SearchBar @suggestions="suggestions = $event" />
+      <SearchBar ref="searchBar" @suggestions="suggestions = $event" />
 
       <transition name="suggestions">
         <SuggestionList
@@ -41,10 +41,17 @@ import { debugStore } from "./store/debugStore.js";
 import { logSelection } from "./services/api";
 
 const suggestions = ref([]);
-
+const searchBar = ref(null);
 function handleSelect(term) {
   logSelection(term);
+  suggestions.value = [];
+  debugStore.setDebug(null);
+  debugStore.enabled = false;
+  if (searchBar.value) {
+    searchBar.value.clear();
+  }
 }
+
 </script>
 <style scoped>
 /* ============================= */

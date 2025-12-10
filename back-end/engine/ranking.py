@@ -2,34 +2,33 @@ import math
 from datetime import datetime
 
 class RankingEngine:
-    """
-    Computes scores for suggestions using frequency, recency, and personalization.
-    """
 
-    def __init__(self, alpha=1.0, beta=1.0, gamma=1.0):
-        self.alpha = alpha
-        self.beta = beta
-        self.gamma = gamma
+    def score_item(self, s, user_id=None):
+        score = 0
 
-    def rank(self, candidates, user_id=None, now=None, limit=10):
-        now = now or datetime.now()
+        # Base score (from QueryProcessor prefix boost)
+        if s.score:
+            score += s.score
 
-        for s in candidates:
-            freq_score = math.log(s.frequency + 1)
+        # Add global frequency (log scale so big numbers don't explode)
+        score += math.log(1 + s.frequency)
 
-            if s.last_used:
-                hours = (now - s.last_used).total_seconds() / 3600
-                recency_score = 1 / (1 + hours)
-            else:
-                recency_score = 0
+        # Add user-specific frequency (bigger weight)
+        if user_id and user_id in s.user_freq:
+            score += 2 * s.user_freq[user_id]
 
-            personalization_score = s.user_freq.get(user_id, 0) if user_id else 0
+        # Add recency boost
+        if s.last_used:
+            age_seconds = (datetime.now() - s.last_used).total_seconds()
+            recency = 1 / (1 + age_seconds / 86400)  # decay per day
+            score += recency
 
-            s.score = (
-                self.alpha * freq_score +
-                self.beta * recency_score +
-                self.gamma * personalization_score
-            )
+        return score
 
-        ranked = sorted(candidates, key=lambda x: x.score, reverse=True)
-        return ranked[:limit]
+    def rank(self, items, user_id=None, limit=5):
+        for s in items:
+            s.score = self.score_item(s, user_id=user_id)
+
+        # Sort by final score
+        items.sort(key=lambda x: x.score, reverse=True)
+        return items[:limit]
