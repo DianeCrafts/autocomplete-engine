@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import './style.css'
+import './assets/theme.css'   // <-- GLOBAL COLORS HERE
+import './assets/main.css'    // your base styles
 import App from './App.vue'
-import './assets/main.css';
+
 createApp(App).mount('#app')

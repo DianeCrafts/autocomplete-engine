@@ -50,3 +50,29 @@ class TrieIndex:
 
         dfs(node)
         return results[:limit] if limit else results
+    
+
+    def find_prefix_node_with_path(self, prefix):
+        node = self.root
+        path = []
+        for char in prefix:
+            if char not in node.children:
+                return None, path
+            node = node.children[char]
+            path.append(char)
+        return node, path
+    
+
+    def to_dict(self, node):
+        def recurse(n):
+            return {
+                "term": n.term,
+                "frequency": n.frequency,
+                "is_end": n.is_end,
+                "user_freq": n.user_freq,
+                "children": {
+                    char: recurse(child)
+                    for char, child in n.children.items()
+                }
+            }
+        return recurse(node)

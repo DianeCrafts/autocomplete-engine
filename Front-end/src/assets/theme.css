@@ -1,0 +1,13 @@
+/* =============== */
+/* GLOBAL THEME    */
+/* =============== */
+
+:root {
+  --color-primary:   #041b35;
+  --color-secondary: #1D546C;
+  --color-light:     #F4F4F4;
+  --color-accent:    #FFCDC9;
+
+  --color-text-dark: #1a1a1a;
+  --color-text-light: #ffffff;
+}

@@ -1,3 +1,4 @@
+from typing import Optional, Any
 from pydantic import BaseModel
 
 class SuggestionResponse(BaseModel):
@@ -7,3 +8,4 @@ class SuggestionResponse(BaseModel):
 class AutocompleteResponse(BaseModel):
     query: str
     suggestions: list[SuggestionResponse]
+    debug: Optional[Any] = None
