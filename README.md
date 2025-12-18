@@ -4,6 +4,14 @@ A full-stack autocomplete system with Python backend and an interactive Vue fron
 The project demonstrates how modern autocomplete systems work internally — including tries, typo tolerance, ranking, personalization, caching, and debug visualization.
 
 
+The demo video is available below on YouTube:👇
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=PY_bDyr3b58">
+    <img src="https://i9.ytimg.com/vi/PY_bDyr3b58/mqdefault.jpg?v=6943576c&sqp=COyvjcoG&rs=AOn4CLBjUpAq8h4gXtFHnMia9kGk8drHuA" alt="Demo Video" width="50%">
+  </a>
+</p>
+
+
 ## Key Features
 ### Backend
 
