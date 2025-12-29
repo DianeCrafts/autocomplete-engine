@@ -7,9 +7,10 @@ The project demonstrates how modern autocomplete systems work internally — inc
 The demo video is available below on YouTube:👇
 <p align="center">
   <a href="https://www.youtube.com/watch?v=PY_bDyr3b58">
-    <img src="https://i9.ytimg.com/vi/PY_bDyr3b58/mqdefault.jpg?v=6943576c&sqp=CKSlwsoG&rs=AOn4CLDiF7dMGCRR3T5FpM-6741oieeG0w" alt="Demo Video" width="50%">
+    <img src="https://github.com/user-attachments/assets/2233cef4-9701-4266-9657-ee7f304eef1d" alt="Demo Video" width="50%">
   </a>
 </p>
+
 
 
 ## Key Features
